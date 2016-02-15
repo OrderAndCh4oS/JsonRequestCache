@@ -1,6 +1,6 @@
 <?php
 
-class Json
+class JsonRequest
 {
     private $url;
     private $file;
@@ -53,4 +53,4 @@ class Json
     }
 }
 
-$json = new Json($argv[1]);
+$json = new JsonRequest($argv[1]);

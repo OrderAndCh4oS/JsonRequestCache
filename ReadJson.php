@@ -1,6 +1,6 @@
 <?php
 
-class JsonRequest
+class ReadJson
 {
 
     private $url;

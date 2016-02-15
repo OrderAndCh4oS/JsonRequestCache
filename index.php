@@ -1,5 +1,5 @@
 <?php
-require( 'EventBrite.php' );
+require( 'ReadJson.php' );
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -12,7 +12,7 @@ require( 'EventBrite.php' );
 </head>
 <body>
 <?php
-$eb = new JsonRequest('https://www.eventbriteapi.com/v3/users/me/owned_events/?status=live,started');
+$eb = new ReadJson('https://www.eventbriteapi.com/v3/users/me/owned_events/?status=live,started');
 if ($eb->getItems()) {
     foreach ($eb->getItems()->events as $event) {
         echo "<h3>".$event->name->html."</h3>";
