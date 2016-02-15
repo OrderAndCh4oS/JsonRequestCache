@@ -1,4 +1,5 @@
 <?php
+
 class EventBrite
 {
 
@@ -35,6 +36,7 @@ class EventBrite
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $this->json = $json;
+
         return $status;
     }
 
@@ -44,19 +46,15 @@ class EventBrite
         if (file_exists($this->file)) {
             $fh        = fopen($this->file, 'r');
             $cacheTime = trim(fgets($fh));
-
-            // if data was cached recently, return cached data
-            if ($cacheTime > strtotime('-4 hours')) {
-                //ToDo: Run Exec to get new file
-            }
-
+            //ToDo: Run Exec to get new file
             $this->events = json_decode(fread($fh, filesize($this->file)));
-
-            // else delete cache file
-            fclose($fh);
-            unlink($this->file);
+            if ($cacheTime > strtotime('-4 hours')) {
+                fclose($fh);
+                return;
+            }
         }
 
+        unlink($this->file);
         $url = $this->url;
         $i   = 2;
         while ($this->setJson($url) == 200) {
