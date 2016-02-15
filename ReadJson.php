@@ -27,7 +27,7 @@ class ReadJson
         } else {
             $this->items = false;
         }
-        $this->execInBackground('php Json.php ' . $this->url);
+        $this->execInBackground('php JsonRequest.php ' . $this->url);
     }
 
     private function execInBackground($cmd) {

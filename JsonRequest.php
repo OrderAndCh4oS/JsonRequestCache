@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 
 class JsonRequest
 {
@@ -20,7 +21,7 @@ class JsonRequest
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL            => $url,
             CURLOPT_HTTPHEADER     => array(
-                'Authorization: Bearer API_TOKEN'
+                'Authorization: Bearer ' . API_TOKEN
             ),
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
