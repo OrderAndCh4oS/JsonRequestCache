@@ -50,6 +50,10 @@ class JsonRequest
         if (isset($json)) {
             $content = time()."\n".$json;
             file_put_contents($this->file, $content);
+        } else {
+            $content = file($this->file);
+            $content[0] = time()."\n";
+            file_put_contents($this->file, implode($content));
         }
     }
 }
