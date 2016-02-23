@@ -19,7 +19,7 @@ class JsonRequest
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL            => $url,
+            CURLOPT_URL            => urldecode($url),
             CURLOPT_HTTPHEADER     => array(
                 'Authorization: Bearer ' . API_TOKEN
             ),
