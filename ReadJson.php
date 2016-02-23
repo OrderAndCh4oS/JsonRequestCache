@@ -58,12 +58,15 @@ class ReadJson
         return $this->items->events;
     }
 
-    public function pagination($url = null) {
+    public function pagination($base_url = null) {
         $length = count($this->items->events);
         $pages = ceil($length / $this->per_page);
         $output = '<div class="pagination"><ul>';
         for ($i = 1; $i <= $pages; $i++) {
             $output .= '<li>';
+            if ($base_url) {
+                $output .= '<a href="'.$base_url.$i.'"';
+            }
             $output .= '<a href="?page='.$i.'"';
             if ($this->page == $i) {
                 $output .= ' class="current"';
