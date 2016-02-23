@@ -44,7 +44,7 @@ class JsonRequest
             } else {
                 $json = json_encode(array_merge_recursive(json_decode($json, true), json_decode($this->json, true)));
             }
-            $url = $this->url.'?page='.$i;
+            $url = $this->url.'&page='.$i;
             $i ++;
         }
         if (isset($json)) {

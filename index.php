@@ -12,9 +12,15 @@ require( 'ReadJson.php' );
 </head>
 <body>
 <?php
-$eb = new ReadJson('https://www.eventbriteapi.com/v3/users/me/owned_events/?status=live,started');
+$page = !empty($_GET['page']) ? (int) $_GET['page'] : 1;
+$args = array(
+    'per_page' => 20,
+    'page' => $page
+);
+$eb = new ReadJson('https://www.eventbriteapi.com/v3/users/me/owned_events/?status=live,started', $args);
 if ($eb->getItems()) {
-    foreach ($eb->getItems()->events as $event) {
+    echo $eb->pagination();
+    foreach ($eb->getItems() as $event) {
         echo "<h3>".$event->name->html."</h3>";
         echo "<p>Places: ".$event->capacity."</p>";
         echo "<p>Date: ".date("l, j F, Y", strtotime($event->start->local))."</p>";
