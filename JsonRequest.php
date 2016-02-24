@@ -23,6 +23,7 @@ class JsonRequest
             CURLOPT_HTTPHEADER     => array(
                 'Authorization: Bearer ' . API_TOKEN
             ),
+            // Remove these in production, they disable SSL handshake
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
         ));
