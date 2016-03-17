@@ -10,7 +10,7 @@ class JsonRequest
     function  __construct($url)
     {
         $this->url  = $url;
-        $this->file = 'cache/'.md5($url);
+        $this->file = 'cache/course_list';
         $this->createFile();
     }
 
@@ -23,6 +23,7 @@ class JsonRequest
             CURLOPT_HTTPHEADER     => array(
                 'Authorization: Bearer ' . API_TOKEN
             ),
+            CURLOPT_TIMEOUT => 60,
             // Remove these in production, they disable SSL handshake
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,

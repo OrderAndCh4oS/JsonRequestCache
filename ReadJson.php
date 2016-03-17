@@ -12,7 +12,7 @@ class ReadJson
     function  __construct($url, $paginate = null)
     {
         $this->url  = $url;
-        $this->file = 'cache/'.md5($url);
+        $this->file = 'cache/course_list';
         $this->setItems();
         if ($paginate) {
             $this->per_page = $paginate['per_page'];
@@ -24,23 +24,10 @@ class ReadJson
     {
         if (file_exists($this->file)) {
             $fh        = fopen($this->file, 'r');
-            $cacheTime = trim(fgets($fh));
+            trim(fgets($fh));
             $this->items = json_decode(fread($fh, filesize($this->file)));
-            if ($cacheTime > strtotime('1 hour')) {
-                fclose($fh);
-                return;
-            }
         } else {
             $this->items = false;
-        }
-        $this->execInBackground('php JsonRequest.php ' . $this->url);
-    }
-
-    private function execInBackground($cmd) {
-        if (substr(php_uname(), 0, 7) == "Windows"){
-            pclose(popen("start /B ". $cmd, "r"));
-        } else {
-            exec($cmd . " > /dev/null &");
         }
     }
 
@@ -49,13 +36,15 @@ class ReadJson
      */
     public function getItems()
     {
-        if ($this->page && $this->per_page) {
-            $offset = ($this->page - 1) * $this->per_page;
-            $paged_items = array_slice($this->items->events, $offset, $this->per_page);
-            return $paged_items;
+        if (!empty($this->items->events)) {
+            if ($this->page && $this->per_page) {
+                $offset = ($this->page - 1) * $this->per_page;
+                $paged_items = array_slice($this->items->events, $offset, $this->per_page);
+                return $paged_items;
+            }
+            return $this->items->events;
         }
-
-        return $this->items->events;
+        return false;
     }
 
     public function pagination($base_url = null) {
